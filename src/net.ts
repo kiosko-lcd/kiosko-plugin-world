@@ -6,7 +6,7 @@
  */
 import { createHttp, HttpError } from '@kiosko/sdk';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 /** What the SDK sends as User-Agent: the plugin, then Kiosko. Never the person. */
 export const AGENT = `kiosko-plugin-world/${VERSION}`;
 export const USER_AGENT = `${AGENT} Kiosko (+https://kioskolcd.dev)`;

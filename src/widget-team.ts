@@ -42,6 +42,11 @@ export const teamWidget = defineWidget({
   size: { min: { w: 120, h: 30 }, preferred: { w: 320, h: 240 } },
   sources: [TEAM],
   redraw: 'minute',
+  /** No valid city in the list ("No cities set"). Empty list means the default team, which is not empty. */
+  empty: ({ sources }) => {
+    const team = sources[TEAM] as TeamData | undefined;
+    return !!team && !team.cities.length;
+  },
   render(g, ctx) {
     const { box } = ctx;
     g.save();
