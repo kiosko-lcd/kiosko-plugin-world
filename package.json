@@ -1,0 +1,86 @@
+{
+  "name": "kiosko-plugin-world",
+  "version": "0.1.0",
+  "description": "The planet now on a small USB LCD panel: a world map with day and night (twilight bands, the sun and the moon) computed on your machine, your team's cities with their local time and whether they are at work, and the whole Earth seen by weather satellites (GOES, Himawari, Meteosat), refreshed every 10 minutes. Also as an interlude: a day going round the Earth in a few seconds. No keys needed.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Loksly <info@kioskolcd.dev> (https://kioskolcd.dev)",
+  "keywords": [
+    "kiosko",
+    "kiosko-plugin",
+    "lcd",
+    "widgets",
+    "world-map",
+    "day-night",
+    "terminator",
+    "twilight",
+    "time-zones",
+    "world-clock",
+    "satellite",
+    "goes",
+    "himawari",
+    "meteosat",
+    "interlude"
+  ],
+  "homepage": "https://github.com/kiosko-lcd/kiosko-plugin-world#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiosko-lcd/kiosko-plugin-world.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kiosko-lcd/kiosko-plugin-world/issues"
+  },
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "kiosko": {
+    "plugin": "./dist/index.js",
+    "id": "world",
+    "sdk": "^0.2.0",
+    "languages": [
+      "en",
+      "es",
+      "de",
+      "zh-Hant",
+      "zh-Hans"
+    ],
+    "manifest": "./kiosko-manifest.json"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "files": [
+    "dist",
+    "docs",
+    "kiosko-manifest.json",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --conditions=source --test \"src/**/*.test.ts\"",
+    "check": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@kiosko/sdk": "^0.2.0"
+  },
+  "devDependencies": {
+    "@kiosko/core": "^0.2.11",
+    "@kiosko/sdk": "^0.2.11",
+    "@loksly/lcd-canvas-kit": "^0.2.0",
+    "@napi-rs/canvas": "^1.0.10",
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.3"
+  }
+}

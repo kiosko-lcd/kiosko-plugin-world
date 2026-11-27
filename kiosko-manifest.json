@@ -1,0 +1,1334 @@
+{
+  "manifest": 1,
+  "id": "world",
+  "package": "kiosko-plugin-world",
+  "name": {
+    "en": "The planet now",
+    "es": "El planeta ahora",
+    "de": "Der Planet jetzt",
+    "zh-Hans": "此刻的地球",
+    "zh-Hant": "此刻的地球"
+  },
+  "version": "0.1.0",
+  "description": {
+    "en": "The planet now: a world map with day and night as they are (twilight in bands, the sun and the moon overhead) computed on your machine, your team’s cities with their time and whether they are at work, and the whole Earth as the weather satellites see it (GOES, Meteosat, Himawari), renewed every 10 minutes. Also an interlude: a day going round the Earth in a few seconds. No keys needed.",
+    "es": "El planeta ahora: un mapa del mundo con el día y la noche como están (el crepúsculo en bandas, el sol y la luna en su cénit) calculados en tu ordenador, las ciudades de tu equipo con su hora y si están trabajando, y la Tierra entera como la ven los satélites meteorológicos (GOES, Meteosat, Himawari), renovada cada 10 minutos. También un interludio: un día alrededor de la Tierra en unos segundos. Sin claves.",
+    "de": "Der Planet jetzt: eine Weltkarte mit Tag und Nacht, wie sie gerade sind (Dämmerung in Bändern, Sonne und Mond im Zenit), auf deinem Rechner berechnet, die Städte deines Teams mit Uhrzeit und ob dort gearbeitet wird, und die ganze Erde, wie die Wettersatelliten sie sehen (GOES, Meteosat, Himawari), alle 10 Minuten neu. Dazu ein Zwischenspiel: ein Tag um die Erde in wenigen Sekunden. Ohne Schlüssel.",
+    "zh-Hans": "此刻的地球：在本机计算的昼夜世界地图（晨昏以色带显示，太阳和月亮位于直射点），团队所在城市的时间以及是否在上班，以及气象卫星（GOES、Meteosat、向日葵）看到的整个地球，每 10 分钟更新。还有过场动画：几秒钟绕地球走完一天。无需密钥。",
+    "zh-Hant": "此刻的地球：在本機計算的晝夜世界地圖（晨昏以色帶顯示，太陽和月亮位於直射點），團隊所在城市的時間以及是否在上班，以及氣象衛星（GOES、Meteosat、向日葵）看到的整個地球，每 10 分鐘更新。還有過場動畫：幾秒鐘繞地球走完一天。無需金鑰。"
+  },
+  "author": "Loksly",
+  "license": "MIT",
+  "homepage": "https://github.com/kiosko-lcd/kiosko-plugin-world#readme",
+  "repository": "https://github.com/kiosko-lcd/kiosko-plugin-world",
+  "icon": "globe",
+  "sdk": "^0.2.0",
+  "platforms": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "languages": [
+    "en",
+    "es",
+    "de",
+    "zh-Hant",
+    "zh-Hans"
+  ],
+  "categories": [
+    "time",
+    "info"
+  ],
+  "tags": [
+    "world",
+    "map",
+    "day-night",
+    "terminator",
+    "twilight",
+    "time-zones",
+    "team",
+    "world-clock",
+    "working-hours",
+    "satellite",
+    "earth",
+    "goes",
+    "himawari",
+    "meteosat",
+    "weather"
+  ],
+  "permissions": {
+    "network": [
+      "cdn.star.nesdis.noaa.gov",
+      "view.eumetsat.int",
+      "www.data.jma.go.jp"
+    ]
+  },
+  "riskyOptions": [],
+  "requires": [],
+  "optional": [],
+  "widgets": [
+    {
+      "type": "world/map",
+      "name": {
+        "en": "Day and night",
+        "es": "Día y noche",
+        "de": "Tag und Nacht",
+        "zh-Hans": "昼夜地图",
+        "zh-Hant": "晝夜地圖"
+      },
+      "description": {
+        "en": "The world with day and night as they are now, twilight in bands, the sun and the moon where they are overhead, and your team’s cities with their local time and whether they are at work. A flat map or a globe; computed here, without network.",
+        "es": "El mundo con el día y la noche como están ahora, el crepúsculo en bandas, el sol y la luna donde están en el cénit, y las ciudades de tu equipo con su hora y si están trabajando. Mapa plano o globo; calculado aquí, sin red.",
+        "de": "Die Welt mit Tag und Nacht, wie sie gerade sind, die Dämmerung in Bändern, Sonne und Mond, wo sie im Zenit stehen, und die Städte deines Teams mit Ortszeit und ob dort gearbeitet wird. Flache Karte oder Globus; hier berechnet, ohne Netz.",
+        "zh-Hans": "此刻世界的昼与夜，晨昏以色带显示，太阳和月亮位于其直射点，并显示团队所在城市的当地时间以及是否在上班。平面地图或地球仪；在本机计算，无需联网。",
+        "zh-Hant": "此刻世界的晝與夜，晨昏以色帶顯示，太陽和月亮位於其直射點，並顯示團隊所在城市的當地時間以及是否在上班。平面地圖或地球儀；在本機計算，無需連網。"
+      },
+      "icon": "globe",
+      "category": "time",
+      "tags": [
+        "world",
+        "map",
+        "day-night",
+        "terminator",
+        "twilight",
+        "time-zones",
+        "team"
+      ],
+      "size": {
+        "min": {
+          "w": 160,
+          "h": 60
+        },
+        "preferred": {
+          "w": 640,
+          "h": 320
+        }
+      },
+      "chrome": "bare",
+      "sources": [
+        "world/team"
+      ],
+      "options": {
+        "default": {
+          "projection": "map",
+          "center": "auto",
+          "list": true,
+          "labels": true,
+          "twilight": true,
+          "showMoon": true
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "projection": {
+            "title": "Projection",
+            "default": "map",
+            "x-ui": {
+              "label": {
+                "en": "Projection",
+                "es": "Proyección",
+                "de": "Projektion",
+                "zh-Hans": "投影",
+                "zh-Hant": "投影"
+              },
+              "labels": {
+                "map": {
+                  "en": "Flat map",
+                  "es": "Mapa plano",
+                  "de": "Flache Karte",
+                  "zh-Hans": "平面地图",
+                  "zh-Hant": "平面地圖"
+                },
+                "globe": {
+                  "en": "Globe",
+                  "es": "Globo",
+                  "de": "Globus",
+                  "zh-Hans": "地球仪",
+                  "zh-Hant": "地球儀"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "map",
+              "globe"
+            ]
+          },
+          "center": {
+            "title": "Centred on",
+            "description": "Automatic: Greenwich, unless you are far from it (the Americas, Asia, Oceania): then near you. Your place is the one in Settings, or your time zone’s.",
+            "default": "auto",
+            "x-ui": {
+              "label": {
+                "en": "Centred on",
+                "es": "Centrado en",
+                "de": "Zentriert auf",
+                "zh-Hans": "中心位置",
+                "zh-Hant": "中心位置"
+              },
+              "help": {
+                "en": "Automatic: Greenwich, unless you are far from it (the Americas, Asia, Oceania): then near you. Your place is the one in Settings, or your time zone’s.",
+                "es": "Automático: Greenwich, salvo que estés lejos (América, Asia, Oceanía): entonces cerca de ti. Tu lugar es el de Ajustes, o el de tu zona horaria.",
+                "de": "Automatisch: Greenwich, außer du bist weit weg (Amerika, Asien, Ozeanien): dann in deiner Nähe. Dein Ort ist der aus den Einstellungen oder der deiner Zeitzone.",
+                "zh-Hans": "自动：以格林尼治为中心；如果你离得很远（美洲、亚洲、大洋洲），则以你附近为中心。你的位置取自设置，或你的时区。",
+                "zh-Hant": "自動：以格林威治為中心；如果你離得很遠（美洲、亞洲、大洋洲），則以你附近為中心。你的位置取自設定，或你的時區。"
+              },
+              "labels": {
+                "auto": {
+                  "en": "Automatic",
+                  "es": "Automático",
+                  "de": "Automatisch",
+                  "zh-Hans": "自动",
+                  "zh-Hant": "自動"
+                },
+                "greenwich": {
+                  "en": "Greenwich (0°)",
+                  "es": "Greenwich (0°)",
+                  "de": "Greenwich (0°)",
+                  "zh-Hans": "格林尼治（0°）",
+                  "zh-Hant": "格林威治（0°）"
+                },
+                "pacific": {
+                  "en": "The Pacific (180°)",
+                  "es": "El Pacífico (180°)",
+                  "de": "Den Pazifik (180°)",
+                  "zh-Hans": "太平洋（180°）",
+                  "zh-Hant": "太平洋（180°）"
+                },
+                "here": {
+                  "en": "Where you are",
+                  "es": "Donde estás",
+                  "de": "Wo du bist",
+                  "zh-Hans": "你所在的位置",
+                  "zh-Hant": "你所在的位置"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "auto",
+              "greenwich",
+              "pacific",
+              "here"
+            ]
+          },
+          "list": {
+            "title": "Clocks beside the map",
+            "description": "When the tile leaves room beside or under the map.",
+            "default": true,
+            "x-ui": {
+              "label": {
+                "en": "Clocks beside the map",
+                "es": "Relojes junto al mapa",
+                "de": "Uhren neben der Karte",
+                "zh-Hans": "地图旁显示时钟",
+                "zh-Hant": "地圖旁顯示時鐘"
+              },
+              "help": {
+                "en": "When the tile leaves room beside or under the map.",
+                "es": "Cuando el hueco deja sitio al lado o debajo del mapa.",
+                "de": "Wenn die Kachel neben oder unter der Karte Platz lässt.",
+                "zh-Hans": "方块在地图旁边或下方有空间时。",
+                "zh-Hant": "方塊在地圖旁邊或下方有空間時。"
+              }
+            },
+            "type": "boolean"
+          },
+          "labels": {
+            "title": "Times on the map",
+            "default": true,
+            "x-ui": {
+              "label": {
+                "en": "Times on the map",
+                "es": "Horas en el mapa",
+                "de": "Uhrzeiten auf der Karte",
+                "zh-Hans": "在地图上显示时间",
+                "zh-Hant": "在地圖上顯示時間"
+              }
+            },
+            "type": "boolean"
+          },
+          "twilight": {
+            "title": "Twilight bands",
+            "description": "Civil, nautical and astronomical twilight as steps of darkness. Off: just day and night.",
+            "default": true,
+            "x-ui": {
+              "label": {
+                "en": "Twilight bands",
+                "es": "Bandas de crepúsculo",
+                "de": "Dämmerungsbänder",
+                "zh-Hans": "晨昏带",
+                "zh-Hant": "晨昏帶"
+              },
+              "help": {
+                "en": "Civil, nautical and astronomical twilight as steps of darkness. Off: just day and night.",
+                "es": "El crepúsculo civil, náutico y astronómico como escalones de oscuridad. Desactivado: solo día y noche.",
+                "de": "Bürgerliche, nautische und astronomische Dämmerung als Stufen der Dunkelheit. Aus: nur Tag und Nacht.",
+                "zh-Hans": "以不同的暗度显示民用、航海和天文晨昏。关闭：只分白天和黑夜。",
+                "zh-Hant": "以不同的暗度顯示民用、航海和天文晨昏。關閉：只分白天和黑夜。"
+              }
+            },
+            "type": "boolean"
+          },
+          "showMoon": {
+            "title": "The moon",
+            "default": true,
+            "x-ui": {
+              "label": {
+                "en": "The moon",
+                "es": "La luna",
+                "de": "Der Mond",
+                "zh-Hans": "月亮",
+                "zh-Hant": "月亮"
+              }
+            },
+            "type": "boolean"
+          }
+        }
+      },
+      "screenshot": "docs/map.png",
+      "animated": false,
+      "urgent": false
+    },
+    {
+      "type": "world/team",
+      "name": {
+        "en": "Team clocks",
+        "es": "Relojes del equipo",
+        "de": "Team-Uhren",
+        "zh-Hans": "团队时钟",
+        "zh-Hant": "團隊時鐘"
+      },
+      "description": {
+        "en": "Your team’s cities with their local time, sorted by time zone, and a dot for whether they are at work there now: green at work, amber about to start or just done, grey off (a ring on days off). Each city has its own hours and weekend.",
+        "es": "Las ciudades de tu equipo con su hora local, ordenadas por zona horaria, y un punto que dice si allí están trabajando: verde trabajando, ámbar a punto de empezar o recién terminado, gris fuera (un aro los días libres). Cada ciudad con su horario y su fin de semana.",
+        "de": "Die Städte deines Teams mit Ortszeit, nach Zeitzone sortiert, und ein Punkt, ob dort gerade gearbeitet wird: grün bei der Arbeit, gelb kurz davor oder gerade fertig, grau frei (ein Ring an freien Tagen). Jede Stadt mit eigenen Zeiten und eigenem Wochenende.",
+        "zh-Hans": "团队所在城市的当地时间，按时区排序，圆点表示那里此刻是否在上班：绿色上班中，琥珀色即将上班或刚下班，灰色下班（休息日为空心圆）。每座城市都有自己的工作时间和周末。",
+        "zh-Hant": "團隊所在城市的當地時間，依時區排序，圓點表示那裡此刻是否在上班：綠色上班中，琥珀色即將上班或剛下班，灰色下班（休息日為空心圓）。每座城市都有自己的工作時間和週末。"
+      },
+      "icon": "clock",
+      "category": "time",
+      "tags": [
+        "world-clock",
+        "time-zones",
+        "team",
+        "working-hours"
+      ],
+      "size": {
+        "min": {
+          "w": 120,
+          "h": 30
+        },
+        "preferred": {
+          "w": 320,
+          "h": 240
+        }
+      },
+      "chrome": "card",
+      "sources": [
+        "world/team"
+      ],
+      "options": null,
+      "screenshot": "docs/team.png",
+      "animated": false,
+      "urgent": false
+    },
+    {
+      "type": "world/earth",
+      "name": {
+        "en": "The Earth now",
+        "es": "La Tierra ahora",
+        "de": "Die Erde jetzt",
+        "zh-Hans": "此刻的地球",
+        "zh-Hant": "此刻的地球"
+      },
+      "description": {
+        "en": "The whole Earth as a weather satellite sees it now (GOES, Meteosat or Himawari: the one over you), renewed every 10 minutes, with the satellite, the time and the agency’s credit on screen.",
+        "es": "La Tierra entera como la ve ahora un satélite meteorológico (GOES, Meteosat o Himawari: el que tienes encima), renovada cada 10 minutos, con el satélite, la hora y el crédito de la agencia en pantalla.",
+        "de": "Die ganze Erde, wie ein Wettersatellit sie gerade sieht (GOES, Meteosat oder Himawari: der über dir), alle 10 Minuten neu, mit Satellit, Uhrzeit und Nennung der Behörde auf dem Bildschirm.",
+        "zh-Hans": "气象卫星此刻看到的整个地球（GOES、Meteosat 或向日葵：你上空的那颗），每 10 分钟更新，屏幕上显示卫星、时间和机构的出处。",
+        "zh-Hant": "氣象衛星此刻看到的整個地球（GOES、Meteosat 或向日葵：你上空的那顆），每 10 分鐘更新，螢幕上顯示衛星、時間和機構的出處。"
+      },
+      "icon": "satellite",
+      "category": "info",
+      "tags": [
+        "satellite",
+        "earth",
+        "goes",
+        "himawari",
+        "meteosat",
+        "weather"
+      ],
+      "size": {
+        "min": {
+          "w": 100,
+          "h": 60
+        },
+        "preferred": {
+          "w": 320,
+          "h": 320
+        }
+      },
+      "chrome": "bare",
+      "sources": [
+        "world/earth"
+      ],
+      "options": null,
+      "screenshot": "docs/earth.png",
+      "animated": false,
+      "urgent": false
+    }
+  ],
+  "sources": [
+    {
+      "type": "world/team",
+      "name": {
+        "en": "Your team’s cities",
+        "es": "Las ciudades de tu equipo",
+        "de": "Die Städte deines Teams",
+        "zh-Hans": "团队所在城市",
+        "zh-Hant": "團隊所在城市"
+      },
+      "description": {
+        "en": "The cities of your team, each with its time zone and working hours. Computed here; no network.",
+        "es": "Las ciudades de tu equipo, cada una con su zona horaria y su horario laboral. Calculado aquí; sin red.",
+        "de": "Die Städte deines Teams, jede mit ihrer Zeitzone und Arbeitszeit. Hier berechnet; ohne Netz.",
+        "zh-Hans": "团队所在的城市，各自带有时区和工作时间。在本机计算，无需联网。",
+        "zh-Hant": "團隊所在的城市，各自附帶時區和工作時間。在本機計算，無需連網。"
+      },
+      "polled": true,
+      "intervalMs": 600000,
+      "options": {
+        "default": {
+          "members": []
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "members": {
+            "title": "Cities",
+            "description": "Where your team is: a city from the list (its time zone, place and usual working week come with it) or your own. Empty: a city on each continent.",
+            "default": [],
+            "x-ui": {
+              "label": {
+                "en": "Cities",
+                "es": "Ciudades",
+                "de": "Städte",
+                "zh-Hans": "城市",
+                "zh-Hant": "城市"
+              },
+              "help": {
+                "en": "Where your team is: a city from the list (its time zone, place and usual working week come with it) or your own. Empty: a city on each continent.",
+                "es": "Dónde está tu equipo: una ciudad de la lista (con su zona horaria, su lugar y su semana laboral habitual) o una tuya. Vacío: una ciudad en cada continente.",
+                "de": "Wo dein Team ist: eine Stadt aus der Liste (mit Zeitzone, Lage und üblicher Arbeitswoche) oder eine eigene. Leer: eine Stadt auf jedem Kontinent.",
+                "zh-Hans": "你的团队在哪里：从列表中选择城市（自带时区、位置和当地的工作周），或自行填写。留空：每个大洲一座城市。",
+                "zh-Hant": "你的團隊在哪裡：從清單中選擇城市（附帶時區、位置和當地的工作週），或自行填寫。留空：每個大洲一座城市。"
+              }
+            },
+            "type": "array",
+            "items": {
+              "default": {
+                "city": "london",
+                "name": "",
+                "timeZone": "",
+                "latitude": 0,
+                "longitude": 0,
+                "start": "09:00",
+                "end": "18:00",
+                "days": "auto"
+              },
+              "x-ui": {},
+              "type": "object",
+              "properties": {
+                "city": {
+                  "title": "City",
+                  "default": "london",
+                  "x-ui": {
+                    "label": {
+                      "en": "City",
+                      "es": "Ciudad",
+                      "de": "Stadt",
+                      "zh-Hans": "城市",
+                      "zh-Hant": "城市"
+                    },
+                    "labels": {
+                      "custom": {
+                        "en": "Other (set below)",
+                        "es": "Otra (indícala abajo)",
+                        "de": "Andere (unten angeben)",
+                        "zh-Hans": "其他（在下方填写）",
+                        "zh-Hant": "其他（在下方填寫）"
+                      },
+                      "honolulu": {
+                        "en": "Honolulu",
+                        "es": "Honolulu",
+                        "de": "Honolulu",
+                        "zh-Hans": "檀香山",
+                        "zh-Hant": "檀香山"
+                      },
+                      "anchorage": {
+                        "en": "Anchorage",
+                        "es": "Anchorage",
+                        "de": "Anchorage",
+                        "zh-Hans": "安克雷奇",
+                        "zh-Hant": "安克拉治"
+                      },
+                      "vancouver": {
+                        "en": "Vancouver",
+                        "es": "Vancouver",
+                        "de": "Vancouver",
+                        "zh-Hans": "温哥华",
+                        "zh-Hant": "溫哥華"
+                      },
+                      "seattle": {
+                        "en": "Seattle",
+                        "es": "Seattle",
+                        "de": "Seattle",
+                        "zh-Hans": "西雅图",
+                        "zh-Hant": "西雅圖"
+                      },
+                      "san-francisco": {
+                        "en": "San Francisco",
+                        "es": "San Francisco",
+                        "de": "San Francisco",
+                        "zh-Hans": "旧金山",
+                        "zh-Hant": "舊金山"
+                      },
+                      "los-angeles": {
+                        "en": "Los Angeles",
+                        "es": "Los Ángeles",
+                        "de": "Los Angeles",
+                        "zh-Hans": "洛杉矶",
+                        "zh-Hant": "洛杉磯"
+                      },
+                      "denver": {
+                        "en": "Denver",
+                        "es": "Denver",
+                        "de": "Denver",
+                        "zh-Hans": "丹佛",
+                        "zh-Hant": "丹佛"
+                      },
+                      "mexico-city": {
+                        "en": "Mexico City",
+                        "es": "Ciudad de México",
+                        "de": "Mexiko-Stadt",
+                        "zh-Hans": "墨西哥城",
+                        "zh-Hant": "墨西哥城"
+                      },
+                      "austin": {
+                        "en": "Austin",
+                        "es": "Austin",
+                        "de": "Austin",
+                        "zh-Hans": "奥斯汀",
+                        "zh-Hant": "奧斯汀"
+                      },
+                      "chicago": {
+                        "en": "Chicago",
+                        "es": "Chicago",
+                        "de": "Chicago",
+                        "zh-Hans": "芝加哥",
+                        "zh-Hant": "芝加哥"
+                      },
+                      "toronto": {
+                        "en": "Toronto",
+                        "es": "Toronto",
+                        "de": "Toronto",
+                        "zh-Hans": "多伦多",
+                        "zh-Hant": "多倫多"
+                      },
+                      "new-york": {
+                        "en": "New York",
+                        "es": "Nueva York",
+                        "de": "New York",
+                        "zh-Hans": "纽约",
+                        "zh-Hant": "紐約"
+                      },
+                      "miami": {
+                        "en": "Miami",
+                        "es": "Miami",
+                        "de": "Miami",
+                        "zh-Hans": "迈阿密",
+                        "zh-Hant": "邁阿密"
+                      },
+                      "bogota": {
+                        "en": "Bogotá",
+                        "es": "Bogotá",
+                        "de": "Bogotá",
+                        "zh-Hans": "波哥大",
+                        "zh-Hant": "波哥大"
+                      },
+                      "lima": {
+                        "en": "Lima",
+                        "es": "Lima",
+                        "de": "Lima",
+                        "zh-Hans": "利马",
+                        "zh-Hant": "利馬"
+                      },
+                      "santiago": {
+                        "en": "Santiago",
+                        "es": "Santiago de Chile",
+                        "de": "Santiago de Chile",
+                        "zh-Hans": "圣地亚哥",
+                        "zh-Hant": "聖地牙哥"
+                      },
+                      "buenos-aires": {
+                        "en": "Buenos Aires",
+                        "es": "Buenos Aires",
+                        "de": "Buenos Aires",
+                        "zh-Hans": "布宜诺斯艾利斯",
+                        "zh-Hant": "布宜諾斯艾利斯"
+                      },
+                      "sao-paulo": {
+                        "en": "São Paulo",
+                        "es": "São Paulo",
+                        "de": "São Paulo",
+                        "zh-Hans": "圣保罗",
+                        "zh-Hant": "聖保羅"
+                      },
+                      "reykjavik": {
+                        "en": "Reykjavík",
+                        "es": "Reikiavik",
+                        "de": "Reykjavík",
+                        "zh-Hans": "雷克雅未克",
+                        "zh-Hant": "雷克雅維克"
+                      },
+                      "dublin": {
+                        "en": "Dublin",
+                        "es": "Dublín",
+                        "de": "Dublin",
+                        "zh-Hans": "都柏林",
+                        "zh-Hant": "都柏林"
+                      },
+                      "london": {
+                        "en": "London",
+                        "es": "Londres",
+                        "de": "London",
+                        "zh-Hans": "伦敦",
+                        "zh-Hant": "倫敦"
+                      },
+                      "lisbon": {
+                        "en": "Lisbon",
+                        "es": "Lisboa",
+                        "de": "Lissabon",
+                        "zh-Hans": "里斯本",
+                        "zh-Hant": "里斯本"
+                      },
+                      "madrid": {
+                        "en": "Madrid",
+                        "es": "Madrid",
+                        "de": "Madrid",
+                        "zh-Hans": "马德里",
+                        "zh-Hant": "馬德里"
+                      },
+                      "barcelona": {
+                        "en": "Barcelona",
+                        "es": "Barcelona",
+                        "de": "Barcelona",
+                        "zh-Hans": "巴塞罗那",
+                        "zh-Hant": "巴塞隆納"
+                      },
+                      "paris": {
+                        "en": "Paris",
+                        "es": "París",
+                        "de": "Paris",
+                        "zh-Hans": "巴黎",
+                        "zh-Hant": "巴黎"
+                      },
+                      "amsterdam": {
+                        "en": "Amsterdam",
+                        "es": "Ámsterdam",
+                        "de": "Amsterdam",
+                        "zh-Hans": "阿姆斯特丹",
+                        "zh-Hant": "阿姆斯特丹"
+                      },
+                      "zurich": {
+                        "en": "Zurich",
+                        "es": "Zúrich",
+                        "de": "Zürich",
+                        "zh-Hans": "苏黎世",
+                        "zh-Hant": "蘇黎世"
+                      },
+                      "berlin": {
+                        "en": "Berlin",
+                        "es": "Berlín",
+                        "de": "Berlin",
+                        "zh-Hans": "柏林",
+                        "zh-Hant": "柏林"
+                      },
+                      "munich": {
+                        "en": "Munich",
+                        "es": "Múnich",
+                        "de": "München",
+                        "zh-Hans": "慕尼黑",
+                        "zh-Hant": "慕尼黑"
+                      },
+                      "vienna": {
+                        "en": "Vienna",
+                        "es": "Viena",
+                        "de": "Wien",
+                        "zh-Hans": "维也纳",
+                        "zh-Hant": "維也納"
+                      },
+                      "rome": {
+                        "en": "Rome",
+                        "es": "Roma",
+                        "de": "Rom",
+                        "zh-Hans": "罗马",
+                        "zh-Hant": "羅馬"
+                      },
+                      "stockholm": {
+                        "en": "Stockholm",
+                        "es": "Estocolmo",
+                        "de": "Stockholm",
+                        "zh-Hans": "斯德哥尔摩",
+                        "zh-Hant": "斯德哥爾摩"
+                      },
+                      "warsaw": {
+                        "en": "Warsaw",
+                        "es": "Varsovia",
+                        "de": "Warschau",
+                        "zh-Hans": "华沙",
+                        "zh-Hant": "華沙"
+                      },
+                      "helsinki": {
+                        "en": "Helsinki",
+                        "es": "Helsinki",
+                        "de": "Helsinki",
+                        "zh-Hans": "赫尔辛基",
+                        "zh-Hant": "赫爾辛基"
+                      },
+                      "athens": {
+                        "en": "Athens",
+                        "es": "Atenas",
+                        "de": "Athen",
+                        "zh-Hans": "雅典",
+                        "zh-Hant": "雅典"
+                      },
+                      "kyiv": {
+                        "en": "Kyiv",
+                        "es": "Kiev",
+                        "de": "Kyjiw",
+                        "zh-Hans": "基辅",
+                        "zh-Hant": "基輔"
+                      },
+                      "istanbul": {
+                        "en": "Istanbul",
+                        "es": "Estambul",
+                        "de": "Istanbul",
+                        "zh-Hans": "伊斯坦布尔",
+                        "zh-Hant": "伊斯坦堡"
+                      },
+                      "moscow": {
+                        "en": "Moscow",
+                        "es": "Moscú",
+                        "de": "Moskau",
+                        "zh-Hans": "莫斯科",
+                        "zh-Hant": "莫斯科"
+                      },
+                      "cairo": {
+                        "en": "Cairo",
+                        "es": "El Cairo",
+                        "de": "Kairo",
+                        "zh-Hans": "开罗",
+                        "zh-Hant": "開羅"
+                      },
+                      "lagos": {
+                        "en": "Lagos",
+                        "es": "Lagos",
+                        "de": "Lagos",
+                        "zh-Hans": "拉各斯",
+                        "zh-Hant": "拉哥斯"
+                      },
+                      "nairobi": {
+                        "en": "Nairobi",
+                        "es": "Nairobi",
+                        "de": "Nairobi",
+                        "zh-Hans": "内罗毕",
+                        "zh-Hant": "奈洛比"
+                      },
+                      "johannesburg": {
+                        "en": "Johannesburg",
+                        "es": "Johannesburgo",
+                        "de": "Johannesburg",
+                        "zh-Hans": "约翰内斯堡",
+                        "zh-Hant": "約翰尼斯堡"
+                      },
+                      "tel-aviv": {
+                        "en": "Tel Aviv",
+                        "es": "Tel Aviv",
+                        "de": "Tel Aviv",
+                        "zh-Hans": "特拉维夫",
+                        "zh-Hant": "特拉維夫"
+                      },
+                      "riyadh": {
+                        "en": "Riyadh",
+                        "es": "Riad",
+                        "de": "Riad",
+                        "zh-Hans": "利雅得",
+                        "zh-Hant": "利雅德"
+                      },
+                      "tehran": {
+                        "en": "Tehran",
+                        "es": "Teherán",
+                        "de": "Teheran",
+                        "zh-Hans": "德黑兰",
+                        "zh-Hant": "德黑蘭"
+                      },
+                      "dubai": {
+                        "en": "Dubai",
+                        "es": "Dubái",
+                        "de": "Dubai",
+                        "zh-Hans": "迪拜",
+                        "zh-Hant": "杜拜"
+                      },
+                      "karachi": {
+                        "en": "Karachi",
+                        "es": "Karachi",
+                        "de": "Karatschi",
+                        "zh-Hans": "卡拉奇",
+                        "zh-Hant": "喀拉蚩"
+                      },
+                      "mumbai": {
+                        "en": "Mumbai",
+                        "es": "Bombay",
+                        "de": "Mumbai",
+                        "zh-Hans": "孟买",
+                        "zh-Hant": "孟買"
+                      },
+                      "delhi": {
+                        "en": "New Delhi",
+                        "es": "Nueva Delhi",
+                        "de": "Neu-Delhi",
+                        "zh-Hans": "新德里",
+                        "zh-Hant": "新德里"
+                      },
+                      "bengaluru": {
+                        "en": "Bengaluru",
+                        "es": "Bangalore",
+                        "de": "Bengaluru",
+                        "zh-Hans": "班加罗尔",
+                        "zh-Hant": "班加羅爾"
+                      },
+                      "kathmandu": {
+                        "en": "Kathmandu",
+                        "es": "Katmandú",
+                        "de": "Kathmandu",
+                        "zh-Hans": "加德满都",
+                        "zh-Hant": "加德滿都"
+                      },
+                      "dhaka": {
+                        "en": "Dhaka",
+                        "es": "Daca",
+                        "de": "Dhaka",
+                        "zh-Hans": "达卡",
+                        "zh-Hant": "達卡"
+                      },
+                      "bangkok": {
+                        "en": "Bangkok",
+                        "es": "Bangkok",
+                        "de": "Bangkok",
+                        "zh-Hans": "曼谷",
+                        "zh-Hant": "曼谷"
+                      },
+                      "jakarta": {
+                        "en": "Jakarta",
+                        "es": "Yakarta",
+                        "de": "Jakarta",
+                        "zh-Hans": "雅加达",
+                        "zh-Hant": "雅加達"
+                      },
+                      "singapore": {
+                        "en": "Singapore",
+                        "es": "Singapur",
+                        "de": "Singapur",
+                        "zh-Hans": "新加坡",
+                        "zh-Hant": "新加坡"
+                      },
+                      "manila": {
+                        "en": "Manila",
+                        "es": "Manila",
+                        "de": "Manila",
+                        "zh-Hans": "马尼拉",
+                        "zh-Hant": "馬尼拉"
+                      },
+                      "hong-kong": {
+                        "en": "Hong Kong",
+                        "es": "Hong Kong",
+                        "de": "Hongkong",
+                        "zh-Hans": "香港",
+                        "zh-Hant": "香港"
+                      },
+                      "shenzhen": {
+                        "en": "Shenzhen",
+                        "es": "Shenzhen",
+                        "de": "Shenzhen",
+                        "zh-Hans": "深圳",
+                        "zh-Hant": "深圳"
+                      },
+                      "shanghai": {
+                        "en": "Shanghai",
+                        "es": "Shanghái",
+                        "de": "Shanghai",
+                        "zh-Hans": "上海",
+                        "zh-Hant": "上海"
+                      },
+                      "beijing": {
+                        "en": "Beijing",
+                        "es": "Pekín",
+                        "de": "Peking",
+                        "zh-Hans": "北京",
+                        "zh-Hant": "北京"
+                      },
+                      "taipei": {
+                        "en": "Taipei",
+                        "es": "Taipéi",
+                        "de": "Taipeh",
+                        "zh-Hans": "台北",
+                        "zh-Hant": "臺北"
+                      },
+                      "seoul": {
+                        "en": "Seoul",
+                        "es": "Seúl",
+                        "de": "Seoul",
+                        "zh-Hans": "首尔",
+                        "zh-Hant": "首爾"
+                      },
+                      "tokyo": {
+                        "en": "Tokyo",
+                        "es": "Tokio",
+                        "de": "Tokio",
+                        "zh-Hans": "东京",
+                        "zh-Hant": "東京"
+                      },
+                      "perth": {
+                        "en": "Perth",
+                        "es": "Perth",
+                        "de": "Perth",
+                        "zh-Hans": "珀斯",
+                        "zh-Hant": "伯斯"
+                      },
+                      "adelaide": {
+                        "en": "Adelaide",
+                        "es": "Adelaida",
+                        "de": "Adelaide",
+                        "zh-Hans": "阿德莱德",
+                        "zh-Hant": "阿得雷德"
+                      },
+                      "melbourne": {
+                        "en": "Melbourne",
+                        "es": "Melbourne",
+                        "de": "Melbourne",
+                        "zh-Hans": "墨尔本",
+                        "zh-Hant": "墨爾本"
+                      },
+                      "sydney": {
+                        "en": "Sydney",
+                        "es": "Sídney",
+                        "de": "Sydney",
+                        "zh-Hans": "悉尼",
+                        "zh-Hant": "雪梨"
+                      },
+                      "auckland": {
+                        "en": "Auckland",
+                        "es": "Auckland",
+                        "de": "Auckland",
+                        "zh-Hans": "奥克兰",
+                        "zh-Hant": "奧克蘭"
+                      }
+                    }
+                  },
+                  "type": "string",
+                  "enum": [
+                    "custom",
+                    "honolulu",
+                    "anchorage",
+                    "vancouver",
+                    "seattle",
+                    "san-francisco",
+                    "los-angeles",
+                    "denver",
+                    "mexico-city",
+                    "austin",
+                    "chicago",
+                    "toronto",
+                    "new-york",
+                    "miami",
+                    "bogota",
+                    "lima",
+                    "santiago",
+                    "buenos-aires",
+                    "sao-paulo",
+                    "reykjavik",
+                    "dublin",
+                    "london",
+                    "lisbon",
+                    "madrid",
+                    "barcelona",
+                    "paris",
+                    "amsterdam",
+                    "zurich",
+                    "berlin",
+                    "munich",
+                    "vienna",
+                    "rome",
+                    "stockholm",
+                    "warsaw",
+                    "helsinki",
+                    "athens",
+                    "kyiv",
+                    "istanbul",
+                    "moscow",
+                    "cairo",
+                    "lagos",
+                    "nairobi",
+                    "johannesburg",
+                    "tel-aviv",
+                    "riyadh",
+                    "tehran",
+                    "dubai",
+                    "karachi",
+                    "mumbai",
+                    "delhi",
+                    "bengaluru",
+                    "kathmandu",
+                    "dhaka",
+                    "bangkok",
+                    "jakarta",
+                    "singapore",
+                    "manila",
+                    "hong-kong",
+                    "shenzhen",
+                    "shanghai",
+                    "beijing",
+                    "taipei",
+                    "seoul",
+                    "tokyo",
+                    "perth",
+                    "adelaide",
+                    "melbourne",
+                    "sydney",
+                    "auckland"
+                  ]
+                },
+                "name": {
+                  "title": "Name",
+                  "description": "Empty: the city’s name. A person or an office (“Ana”, “HQ”) works too.",
+                  "default": "",
+                  "x-ui": {
+                    "label": {
+                      "en": "Name",
+                      "es": "Nombre",
+                      "de": "Name",
+                      "zh-Hans": "名称",
+                      "zh-Hant": "名稱"
+                    },
+                    "help": {
+                      "en": "Empty: the city’s name. A person or an office (“Ana”, “HQ”) works too.",
+                      "es": "Vacío: el nombre de la ciudad. También vale una persona o una oficina («Ana», «Central»).",
+                      "de": "Leer: der Name der Stadt. Auch eine Person oder ein Büro („Ana“, „Zentrale“).",
+                      "zh-Hans": "留空：使用城市名称。也可以填人名或办公室（“Ana”、“总部”）。",
+                      "zh-Hant": "留空：使用城市名稱。也可以填人名或辦公室（「Ana」、「總部」）。"
+                    },
+                    "placeholder": "Ana · Lisbon"
+                  },
+                  "type": "string"
+                },
+                "timeZone": {
+                  "title": "Time zone",
+                  "description": "Only for “Other”: an IANA zone name.",
+                  "default": "",
+                  "x-ui": {
+                    "label": {
+                      "en": "Time zone",
+                      "es": "Zona horaria",
+                      "de": "Zeitzone",
+                      "zh-Hans": "时区",
+                      "zh-Hant": "時區"
+                    },
+                    "help": {
+                      "en": "Only for “Other”: an IANA zone name.",
+                      "es": "Solo para «Otra»: el nombre de una zona IANA.",
+                      "de": "Nur für „Andere“: ein IANA-Zonenname.",
+                      "zh-Hans": "仅用于“其他”：IANA 时区名称。",
+                      "zh-Hant": "僅用於「其他」：IANA 時區名稱。"
+                    },
+                    "placeholder": "Europe/Lisbon"
+                  },
+                  "type": "string"
+                },
+                "latitude": {
+                  "title": "Latitude",
+                  "default": 0,
+                  "x-ui": {
+                    "label": {
+                      "en": "Latitude",
+                      "es": "Latitud",
+                      "de": "Breitengrad",
+                      "zh-Hans": "纬度",
+                      "zh-Hant": "緯度"
+                    },
+                    "advanced": true,
+                    "step": 0.01
+                  },
+                  "type": "number",
+                  "minimum": -90,
+                  "maximum": 90
+                },
+                "longitude": {
+                  "title": "Longitude",
+                  "default": 0,
+                  "x-ui": {
+                    "label": {
+                      "en": "Longitude",
+                      "es": "Longitud",
+                      "de": "Längengrad",
+                      "zh-Hans": "经度",
+                      "zh-Hant": "經度"
+                    },
+                    "advanced": true,
+                    "step": 0.01
+                  },
+                  "type": "number",
+                  "minimum": -180,
+                  "maximum": 180
+                },
+                "start": {
+                  "title": "Work starts",
+                  "default": "09:00",
+                  "x-ui": {
+                    "label": {
+                      "en": "Work starts",
+                      "es": "Empieza",
+                      "de": "Arbeitsbeginn",
+                      "zh-Hans": "上班时间",
+                      "zh-Hant": "上班時間"
+                    },
+                    "format": "time"
+                  },
+                  "type": "string"
+                },
+                "end": {
+                  "title": "Work ends",
+                  "default": "18:00",
+                  "x-ui": {
+                    "label": {
+                      "en": "Work ends",
+                      "es": "Termina",
+                      "de": "Arbeitsende",
+                      "zh-Hans": "下班时间",
+                      "zh-Hant": "下班時間"
+                    },
+                    "format": "time"
+                  },
+                  "type": "string"
+                },
+                "days": {
+                  "title": "Working days",
+                  "default": "auto",
+                  "x-ui": {
+                    "label": {
+                      "en": "Working days",
+                      "es": "Días laborables",
+                      "de": "Arbeitstage",
+                      "zh-Hans": "工作日",
+                      "zh-Hant": "工作日"
+                    },
+                    "labels": {
+                      "auto": {
+                        "en": "As usual there",
+                        "es": "Los habituales allí",
+                        "de": "Wie dort üblich",
+                        "zh-Hans": "按当地习惯",
+                        "zh-Hant": "依當地習慣"
+                      },
+                      "mon-fri": {
+                        "en": "Monday to Friday",
+                        "es": "De lunes a viernes",
+                        "de": "Montag bis Freitag",
+                        "zh-Hans": "周一至周五",
+                        "zh-Hant": "週一至週五"
+                      },
+                      "sun-thu": {
+                        "en": "Sunday to Thursday",
+                        "es": "De domingo a jueves",
+                        "de": "Sonntag bis Donnerstag",
+                        "zh-Hans": "周日至周四",
+                        "zh-Hant": "週日至週四"
+                      },
+                      "sat-wed": {
+                        "en": "Saturday to Wednesday",
+                        "es": "De sábado a miércoles",
+                        "de": "Samstag bis Mittwoch",
+                        "zh-Hans": "周六至周三",
+                        "zh-Hant": "週六至週三"
+                      },
+                      "mon-sat": {
+                        "en": "Monday to Saturday",
+                        "es": "De lunes a sábado",
+                        "de": "Montag bis Samstag",
+                        "zh-Hans": "周一至周六",
+                        "zh-Hant": "週一至週六"
+                      },
+                      "sun-fri": {
+                        "en": "Sunday to Friday",
+                        "es": "De domingo a viernes",
+                        "de": "Sonntag bis Freitag",
+                        "zh-Hans": "周日至周五",
+                        "zh-Hant": "週日至週五"
+                      }
+                    }
+                  },
+                  "type": "string",
+                  "enum": [
+                    "auto",
+                    "mon-fri",
+                    "sun-thu",
+                    "sat-wed",
+                    "mon-sat",
+                    "sun-fri"
+                  ]
+                }
+              }
+            },
+            "maxItems": 24
+          }
+        }
+      }
+    },
+    {
+      "type": "world/earth",
+      "name": {
+        "en": "The Earth from space",
+        "es": "La Tierra desde el espacio",
+        "de": "Die Erde aus dem All",
+        "zh-Hans": "太空中的地球",
+        "zh-Hant": "太空中的地球"
+      },
+      "description": {
+        "en": "The latest full-disk image of a weather satellite (GOES, Meteosat or Himawari), at the size your panels need, every 10 minutes at most. Kept on disk: if the satellite’s site is down, the last image stays.",
+        "es": "La última imagen de disco completo de un satélite meteorológico (GOES, Meteosat o Himawari), al tamaño que piden tus paneles, como mucho cada 10 minutos. Se guarda en disco: si la web del satélite no responde, se queda la última.",
+        "de": "Das neueste Vollbild der Erdscheibe eines Wettersatelliten (GOES, Meteosat oder Himawari), in der Größe, die deine Panels brauchen, höchstens alle 10 Minuten. Auf der Platte gespeichert: Ist die Seite des Satelliten nicht erreichbar, bleibt das letzte Bild.",
+        "zh-Hans": "气象卫星（GOES、Meteosat 或向日葵）最新的全圆盘图像，按面板所需的尺寸获取，最多每 10 分钟一次。保存在磁盘上：卫星网站无法访问时，保留最后一张。",
+        "zh-Hant": "氣象衛星（GOES、Meteosat 或向日葵）最新的全圓盤影像，依面板所需的尺寸取得，最多每 10 分鐘一次。儲存在磁碟上：衛星網站無法存取時，保留最後一張。"
+      },
+      "polled": true,
+      "intervalMs": 300000,
+      "options": {
+        "default": {
+          "satellite": "auto"
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "satellite": {
+            "title": "Satellite",
+            "description": "The one over you: the satellite hanging closest to your longitude (from your location in Settings, or your time zone).",
+            "default": "auto",
+            "x-ui": {
+              "label": {
+                "en": "Satellite",
+                "es": "Satélite",
+                "de": "Satellit",
+                "zh-Hans": "卫星",
+                "zh-Hant": "衛星"
+              },
+              "help": {
+                "en": "The one over you: the satellite hanging closest to your longitude (from your location in Settings, or your time zone).",
+                "es": "El que tienes encima: el satélite más cercano a tu longitud (la de tu ubicación en Ajustes, o la de tu zona horaria).",
+                "de": "Der über dir: der Satellit, der deinem Längengrad am nächsten steht (aus deinem Ort in den Einstellungen oder deiner Zeitzone).",
+                "zh-Hans": "你上空的那颗：离你所在经度最近的卫星（取自设置中的位置，或你的时区）。",
+                "zh-Hant": "你上空的那顆：離你所在經度最近的衛星（取自設定中的位置，或你的時區）。"
+              },
+              "labels": {
+                "auto": {
+                  "en": "The one over you",
+                  "es": "El que tienes encima",
+                  "de": "Der über dir",
+                  "zh-Hans": "你上空的那颗",
+                  "zh-Hant": "你上空的那顆"
+                },
+                "goes-west": {
+                  "en": "GOES-West (Pacific, western Americas)",
+                  "es": "GOES-Oeste (Pacífico, oeste de América)",
+                  "de": "GOES-West (Pazifik, westliches Amerika)",
+                  "zh-Hans": "GOES 西星（太平洋、美洲西部）",
+                  "zh-Hant": "GOES 西星（太平洋、美洲西部）"
+                },
+                "goes-east": {
+                  "en": "GOES-East (the Americas)",
+                  "es": "GOES-Este (América)",
+                  "de": "GOES-Ost (Amerika)",
+                  "zh-Hans": "GOES 东星（美洲）",
+                  "zh-Hant": "GOES 東星（美洲）"
+                },
+                "meteosat": {
+                  "en": "Meteosat (Europe, Africa)",
+                  "es": "Meteosat (Europa, África)",
+                  "de": "Meteosat (Europa, Afrika)",
+                  "zh-Hans": "Meteosat（欧洲、非洲）",
+                  "zh-Hant": "Meteosat（歐洲、非洲）"
+                },
+                "meteosat-iodc": {
+                  "en": "Meteosat (Indian Ocean)",
+                  "es": "Meteosat (océano Índico)",
+                  "de": "Meteosat (Indischer Ozean)",
+                  "zh-Hans": "Meteosat（印度洋）",
+                  "zh-Hant": "Meteosat（印度洋）"
+                },
+                "himawari": {
+                  "en": "Himawari (Asia, Oceania)",
+                  "es": "Himawari (Asia, Oceanía)",
+                  "de": "Himawari (Asien, Ozeanien)",
+                  "zh-Hans": "向日葵（亚洲、大洋洲）",
+                  "zh-Hant": "向日葵（亞洲、大洋洲）"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "auto",
+              "goes-west",
+              "goes-east",
+              "meteosat",
+              "meteosat-iodc",
+              "himawari"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "interludes": [
+    {
+      "type": "world/day",
+      "name": {
+        "en": "A day around the Earth",
+        "es": "Un día alrededor de la Tierra",
+        "de": "Ein Tag um die Erde",
+        "zh-Hans": "地球的一天",
+        "zh-Hant": "地球的一天"
+      },
+      "description": {
+        "en": "A whole day in a few seconds: night and twilight sweep across the map or the globe while your team’s clocks run through the day; or the last hours of satellite images, one after another.",
+        "es": "Un día entero en unos segundos: la noche y el crepúsculo barren el mapa o el globo mientras los relojes de tu equipo recorren el día; o las últimas horas de imágenes del satélite, una tras otra.",
+        "de": "Ein ganzer Tag in wenigen Sekunden: Nacht und Dämmerung ziehen über Karte oder Globus, während die Uhren deines Teams durch den Tag laufen; oder die letzten Stunden Satellitenbilder, eins nach dem anderen.",
+        "zh-Hans": "几秒钟内走完一整天：黑夜和晨昏扫过地图或地球仪，团队的时钟随之走过一天；或依次播放最近几个小时的卫星图像。",
+        "zh-Hant": "幾秒鐘內走完一整天：黑夜和晨昏掃過地圖或地球儀，團隊的時鐘隨之走過一天；或依序播放最近幾個小時的衛星影像。"
+      },
+      "icon": "globe",
+      "fps": 15,
+      "preview": {
+        "poster": "docs/day.jpg"
+      }
+    }
+  ],
+  "templates": [],
+  "support": {
+    "issues": "https://github.com/kiosko-lcd/kiosko-plugin-world/issues",
+    "docs": "https://github.com/kiosko-lcd/kiosko-plugin-world#readme"
+  },
+  "resources": {
+    "memoryMb": 60,
+    "cpu": "low"
+  }
+}

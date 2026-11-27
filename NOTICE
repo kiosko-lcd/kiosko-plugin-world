@@ -1,0 +1,59 @@
+kiosko-plugin-world
+Copyright (c) 2026 Loksly. MIT licence (see LICENSE).
+
+The map's land and the images this plugin shows are not covered by this
+plugin's licence. The plugin always shows, with a satellite image, the
+satellite, the time of the image and the agency's credit. It uses no
+agency's logo, and Kiosko and this plugin are not affiliated with, nor
+endorsed by, any of them.
+
+Natural Earth
+  src/land-data.ts is derived from Natural Earth's 1:50m land polygons
+  (ne_50m_land), simplified. Natural Earth is in the public domain.
+  Made with Natural Earth. Free vector and raster map data @
+  naturalearthdata.com.
+
+NOAA/NESDIS/STAR, GOES-East (GOES-19) and GOES-West (GOES-18)
+  GeoColor full-disk images from https://cdn.star.nesdis.noaa.gov (no key).
+  Works of the US federal government: public domain. GeoColor imagery is
+  produced by CIRA (Cooperative Institute for Research in the Atmosphere,
+  Colorado State University) with NOAA/NESDIS/STAR.
+  https://www.star.nesdis.noaa.gov/GOES/
+  Shown as: "NOAA/NESDIS/STAR · CIRA".
+  The screenshots in docs/ show GOES-19 images (public domain).
+
+Japan Meteorological Agency, Himawari-9
+  True Color Reproduction full-disk images from the Meteorological
+  Satellite Center's real-time page, https://www.data.jma.go.jp/mscweb/data/himawari/
+  (no key). Under the terms of use of the JMA website (Public Data License
+  1.0, compatible with Creative Commons Attribution 4.0):
+  "Source: Japan Meteorological Agency website". True Color Reproduction
+  imagery was developed by the JMA Meteorological Satellite Center with the
+  NOAA/NESDIS/STAR GOES-R Algorithm Working Group imagery team, using
+  software from CIRA; its terms ask to credit the Japan Meteorological
+  Agency (JMA), NOAA/NESDIS and Colorado State University–CIRA (CSU/CIRA).
+  The plugin resizes the images and cuts them to the Earth's disk.
+  https://www.jma.go.jp/jma/en/copyright.html
+  https://www.jma.go.jp/jma/jma-eng/satellite/introduction/TCR.html
+  Shown as: "JMA · NOAA/NESDIS · CSU/CIRA" (long form: "Himawari-9 True
+  Color Reproduction · Source: Japan Meteorological Agency website · JMA,
+  NOAA/NESDIS, CSU/CIRA").
+
+EUMETSAT, Meteosat-12 (0°) and Meteosat-9 (45.5°E, Indian Ocean)
+  GeoColour and Natural Colour Enhanced RGB images from the EUMETView map
+  service, https://view.eumetsat.int (WMS, no key). Under EUMETSAT's Data
+  Policy, RGB images and other visualisations are Advanced Image Products,
+  "Core" data available on a free and unrestricted basis under CC BY 4.0,
+  with the attribution "[Contains modified] EUMETSAT [Meteosat]
+  [data/product] [year]". The plugin reprojects them from latitude and
+  longitude to the satellite's view of the Earth.
+  https://www.eumetsat.int/data-policy
+  Shown as: "EUMETSAT Meteosat <year>" (long form: "Contains modified
+  EUMETSAT Meteosat data <year> · CC BY 4.0").
+
+Test fixtures
+  src/fixtures/jma-fd.html is an excerpt of the JMA real-time page (its list
+  of image times), src/fixtures/eumetview-mtg-geocolour-caps.xml a layer's
+  capabilities from EUMETView, both as served on 2026-11-27, under the terms
+  above. src/fixtures/astro-ref.json holds positions computed with astropy
+  (scripts/ref_astropy.py).
