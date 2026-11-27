@@ -63,13 +63,19 @@ test('every provider: hosts, a credit and a place', () => {
     assert.equal(p.id, id);
     assert.ok(p.hosts.length && p.hosts.every((h) => /^[a-z0-9.-]+$/.test(h)));
     assert.ok(p.credit(2026).length > 3);
-    assert.ok(p.creditLong(2026).length >= p.credit(2026).length);
     assert.ok(Math.abs(p.subLon) <= 180);
   }
-  assert.ok(himawari.creditLong(2026).includes('Japan Meteorological Agency'));
-  assert.ok(himawari.credit(2026).includes('CSU/CIRA'));
-  assert.ok(meteosat.creditLong(2026).includes('Contains modified EUMETSAT Meteosat data 2026'));
-  assert.ok(goesEast.creditLong(2026).includes('public domain'));
+});
+
+test('each credit word for word as the terms give it', () => {
+  // JMA website terms: "Source: Japan Meteorological Agency website (URL of relevant page)", saying it was edited; TCR terms: JMA, NOAA/NESDIS, CSU/CIRA.
+  assert.equal(himawari.credit(2026), 'Source: Japan Meteorological Agency website (https://www.data.jma.go.jp/mscweb/data/himawari/), resized and cropped · True Color Reproduction: JMA, NOAA/NESDIS, CSU/CIRA');
+  // EUMETSAT Data Policy, art. 6.3: "[Contains modified] EUMETSAT [Meteosat] [data/product] [Year]"; and the CC BY 4.0 licence.
+  assert.equal(meteosat.credit(2026), 'Contains modified EUMETSAT Meteosat data 2026 · CC BY 4.0');
+  assert.equal(meteosatIodc.credit(2027), 'Contains modified EUMETSAT Meteosat data 2027 · CC BY 4.0');
+  // Public domain: no wording required; credited all the same.
+  assert.equal(goesEast.credit(2026), 'NOAA/NESDIS/STAR, CIRA · public domain');
+  assert.equal(goesWest.credit(2026), goesEast.credit(2026));
 });
 
 test('GOES: a fixed address per size, the smallest that is big enough, its caption bar hidden', async () => {

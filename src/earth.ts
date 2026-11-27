@@ -34,8 +34,8 @@ export interface EarthData {
   name: Localized;
   craft: string;
   subLon: number;
+  /** The credit its terms ask for, word for word. */
   credit: string;
-  creditLong: string;
   /** Oldest first; the last is the one to show. Empty before the first image. */
   frames: EarthFrame[];
   stale: boolean;
@@ -61,7 +61,6 @@ function dataOf(p: Provider, s: State, store: Store, now: number): EarthData {
     craft: p.craft,
     subLon: p.subLon,
     credit: p.credit(year),
-    creditLong: p.creditLong(year),
     frames: s.frames.map((f) => ({ file: store.path(f.file), takenAt: f.takenAt, px: f.px, kind: f.kind, ...(f.bbox ? { bbox: f.bbox } : {}), ...(f.frame ? { frame: f.frame } : {}) })),
     stale: !last || now - last.takenAt > STALE_MS,
     error: s.error,

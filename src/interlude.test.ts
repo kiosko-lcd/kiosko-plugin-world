@@ -30,7 +30,7 @@ function frames(dir: string, n: number): EarthData {
     writeFileSync(file, c.toBuffer('image/jpeg'));
     return { file, takenAt: T - (n - k) * 600_000, px: 200, kind: 'disk' as const };
   });
-  return { sat: 'goes-east', name: p.name, craft: p.craft, subLon: p.subLon, credit: p.credit(2026), creditLong: p.creditLong(2026), frames: list, stale: false, error: null };
+  return { sat: 'goes-east', name: p.name, craft: p.craft, subLon: p.subLon, credit: p.credit(2026), frames: list, stale: false, error: null };
 }
 
 const lit = (g: ReturnType<ReturnType<typeof createCanvas>['getContext']>, w: number, h: number) => {

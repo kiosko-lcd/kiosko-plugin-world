@@ -12,7 +12,6 @@ export const demoEarth = (_now: number): EarthData => ({
   craft: meteosat.craft,
   subLon: meteosat.subLon,
   credit: 'Kiosko',
-  creditLong: 'Kiosko',
   frames: [],
   stale: false,
   error: null,

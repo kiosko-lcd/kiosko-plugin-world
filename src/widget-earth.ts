@@ -40,19 +40,17 @@ export const PAST_PX = 200;
 export interface Caption {
   /** "GOES-East · 07:50 · 12 min ago". */
   head: string;
-  /** The agency's credit: the long form where it fits. */
+  /** The agency's credit, word for word as its terms give it. */
   credit: string;
-  creditShort: string;
   stale: boolean;
 }
 
 export function captionOf(ctx: Pick<Ctx, 't' | 'fmt' | 'now'>, e: EarthData, takenAt: number | undefined): Caption {
-  if (e.demo) return { head: `${ctx.t(e.name)} · ${ctx.t(SAMPLE_SHORT)}`, credit: ctx.t(SAMPLE), creditShort: ctx.t(SAMPLE_SHORT), stale: false };
+  if (e.demo) return { head: `${ctx.t(e.name)} · ${ctx.t(SAMPLE_SHORT)}`, credit: ctx.t(SAMPLE), stale: false };
   const when = takenAt ? `${ctx.fmt.time(takenAt)} · ${ctx.fmt.ago(takenAt, { now: ctx.now })}` : '';
   return {
     head: [ctx.t(e.name), when, e.stale && takenAt ? ctx.t(OLD) : ''].filter(Boolean).join(' · '),
-    credit: e.creditLong,
-    creditShort: e.credit,
+    credit: e.credit,
     stale: e.stale,
   };
 }
@@ -62,7 +60,7 @@ export function layoutEarth(box: Box): { disk: Box; text: Box | null; overlay: b
   const { x, y, w, h } = box;
   // A long strip: the disk, its caption, then the hours before it.
   const tw = Math.min(Math.round(h * 3.4), 540, Math.round((w - h) * 0.45));
-  if (w / h >= 2.6 && w - h - 24 - tw >= h * 0.9) {
+  if (w / h >= 2.6 && tw >= 160 && w - h - 24 - tw >= h * 0.9) {
     return { disk: { x, y, w: h, h }, text: { x: x + h + 12, y, w: tw, h }, overlay: false, film: { x: x + h + 24 + tw, y, w: w - h - 24 - tw, h } };
   }
   if (w / h >= 1.5 && w - h >= 90) return { disk: { x, y, w: h, h }, text: { x: x + h + 10, y, w: w - h - 14, h }, overlay: false };
@@ -71,17 +69,34 @@ export function layoutEarth(box: Box): { disk: Box; text: Box | null; overlay: b
   return { disk: { x: x + (w - d) / 2, y: y + (h - d) / 2, w: d, h: d }, text: null, overlay: true };
 }
 
-export function lines(g: Graphics, ctx: Pick<Ctx, 'kit' | 'theme'>, cap: Caption, w: number, n: number, size: number): { text: string; size: number; color: string; bold?: boolean }[] {
+/** How long each part of a caption that doesn't fit at once stays on screen. */
+export const TURN_MS = 20_000;
+
+export type Line = { text: string; size: number; color: string; bold?: boolean };
+
+/**
+ * The caption in `n` lines of `w`: all of it when it fits; else in turns
+ * (`phase`, a count of `TURN_MS`), the head, then the credit a page of `n`
+ * lines at a time. The credit is never shortened nor translated: the
+ * agencies' terms give its wording.
+ */
+export function captionPages(g: Graphics, ctx: Pick<Ctx, 'kit' | 'theme'>, cap: Caption, w: number, n: number, size: number): Line[][] {
   const { kit, theme } = ctx;
   const body = { size, family: theme.fonts.sans };
   const bold = { size, family: theme.fonts.sansBold };
-  // The credit is never cut: the agencies' terms ask for it on screen. The long form where it fits whole, else the short one.
-  const room = Math.max(1, n - 1);
-  const long = kit.wrapLines(g, cap.credit, w, 12, body);
-  const credit = n >= 3 && long.length <= n - 2 ? long : kit.wrapLines(g, cap.creditShort, w, n >= 2 ? room : 1, body);
-  const head = kit.wrapLines(g, cap.head, w, Math.min(2, Math.max(0, n - credit.length)), bold);
   const headColor = cap.stale ? theme.colors.warn : 'rgba(236,240,245,0.95)';
-  return [...head.map((text) => ({ text, size, color: headColor, bold: true })), ...credit.map((text) => ({ text, size, color: 'rgba(236,240,245,0.72)' }))];
+  const credit = kit.wrapLines(g, cap.credit, w, 40, body).map((text) => ({ text, size, color: 'rgba(236,240,245,0.72)' }));
+  const head = (max: number) => kit.wrapLines(g, cap.head, w, max, bold).map((text) => ({ text, size, color: headColor, bold: true }));
+  if (credit.length < n) return [[...head(Math.min(2, n - credit.length)), ...credit]];
+  if (credit.length === n) return [credit, head(Math.min(2, n))];
+  const pages: Line[][] = [head(Math.min(2, n))];
+  for (let i = 0; i < credit.length; i += n) pages.push(credit.slice(i, i + n));
+  return pages;
+}
+
+export function lines(g: Graphics, ctx: Pick<Ctx, 'kit' | 'theme'>, cap: Caption, w: number, n: number, size: number, phase = 0): Line[] {
+  const pages = captionPages(g, ctx, cap, w, n, size);
+  return pages[phase % pages.length]!;
 }
 
 /** Earlier images in a row, newest first, each with its time. */
@@ -130,7 +145,7 @@ function render(g: Graphics, ctx: Ctx): void {
     const size = Math.round(clamp(Math.min(t.h / 4.2, t.w / 11, 18), MIN_PX, 18));
     const lineH = Math.round(size * 1.4);
     const n = Math.max(1, Math.min(6, Math.floor(t.h / lineH)));
-    const ls = lines(g, ctx, cap, t.w, n, size);
+    const ls = lines(g, ctx, cap, t.w, n, size, Math.floor(now / TURN_MS));
     let y = t.y + (lay.disk.y === t.y ? (t.h - ls.length * lineH) / 2 : 2) + size;
     for (const l of ls) {
       kit.drawTracked(g, l.text, t.x, y, { size: l.size, family: l.bold ? theme.fonts.sansBold : theme.fonts.sans, color: l.color });
@@ -143,7 +158,7 @@ function render(g: Graphics, ctx: Ctx): void {
   const lineH = Math.round(size * 1.35);
   const n = box.h >= 240 ? 3 : box.h >= 120 ? 2 : 1;
   const pad = Math.round(size * 0.6);
-  const ls = lines(g, ctx, cap, box.w - pad * 2, n, size);
+  const ls = lines(g, ctx, cap, box.w - pad * 2, n, size, Math.floor(now / TURN_MS));
   const blockH = ls.length * lineH + pad;
   const shade = g.createLinearGradient(0, box.y + box.h - blockH * 1.5, 0, box.y + box.h);
   shade.addColorStop(0, 'rgba(0,0,0,0)');
@@ -186,7 +201,8 @@ export const earthWidget = defineWidget<ObjectField<{}>, Shown | undefined>({
     const past = await Promise.all(pastFrames(e.frames, 8).map((p) => loadDisk(ctx.canvas, p, e.subLon, PAST_PX)));
     return { latest, past };
   },
-  redraw: 'minute',
+  // The caption takes turns where it doesn't fit at once.
+  redraw: { everyMs: TURN_MS },
   render(g, ctx) {
     const { box } = ctx;
     g.save();

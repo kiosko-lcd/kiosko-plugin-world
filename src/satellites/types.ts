@@ -28,10 +28,11 @@ export interface Provider {
   subLon: number;
   /** Hosts it contacts. */
   hosts: string[];
-  /** The credit always on screen, short. */
+  /**
+   * The credit its terms ask for, word for word and in their language: always
+   * drawn whole (wrapped, and in turns on small tiles), never shortened.
+   */
   credit: (year: number) => string;
-  /** The full credit, where there is room. */
-  creditLong: (year: number) => string;
   /** The latest image at about `px` across. */
   plan: (net: Net, px: number, o: { now: number; signal?: AbortSignal }) => Promise<Shot>;
 }

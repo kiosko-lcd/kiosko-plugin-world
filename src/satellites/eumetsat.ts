@@ -58,15 +58,15 @@ export function getMapUrl(layer: string, subLon: number, time: number, side: num
 
 export const sideFor = (px: number): number => Math.max(EUM_MIN, Math.min(EUM_MAX, Math.round((px * OVERSAMPLE) / 16) * 16));
 
-function eumetsat(id: 'meteosat' | 'meteosat-iodc', craft: string, subLon: number, layer: string, name: ReturnType<typeof L>, product: string): Provider {
+function eumetsat(id: 'meteosat' | 'meteosat-iodc', craft: string, subLon: number, layer: string, name: ReturnType<typeof L>): Provider {
   return {
     id,
     name,
     craft,
     subLon,
     hosts: [EUM_HOST],
-    credit: (year) => `EUMETSAT Meteosat ${year}`,
-    creditLong: (year) => `${craft} ${product} · Contains modified EUMETSAT Meteosat data ${year} · CC BY 4.0`,
+    // EUMETSAT's attribution, "[Contains modified] EUMETSAT [Meteosat] [data/product] [year]": these are reprojected, so modified; and the licence, as CC BY asks.
+    credit: (year) => `Contains modified EUMETSAT Meteosat data ${year} · CC BY 4.0`,
     async plan(net, px, o): Promise<Shot> {
       const time = parseWmsTime(await net.text(capsUrl(layer), o.signal ? { signal: o.signal } : {}));
       if (time === null) throw new Error(`no time for ${layer} on EUMETView`);
@@ -77,12 +77,11 @@ function eumetsat(id: 'meteosat' | 'meteosat-iodc', craft: string, subLon: numbe
   };
 }
 
-export const meteosat = eumetsat('meteosat', 'Meteosat-12', 0, 'mtg_fd:rgb_geocolour', L('Meteosat', 'Meteosat', 'Meteosat', 'Meteosat 气象卫星', 'Meteosat 氣象衛星'), 'GeoColour');
+export const meteosat = eumetsat('meteosat', 'Meteosat-12', 0, 'mtg_fd:rgb_geocolour', L('Meteosat', 'Meteosat', 'Meteosat', 'Meteosat 气象卫星', 'Meteosat 氣象衛星'));
 export const meteosatIodc = eumetsat(
   'meteosat-iodc',
   'Meteosat-9',
   45.5,
   'msg_iodc:rgb_naturalenhncd',
   L('Meteosat (Indian Ocean)', 'Meteosat (océano Índico)', 'Meteosat (Indischer Ozean)', 'Meteosat（印度洋）', 'Meteosat（印度洋）'),
-  'Natural Colour Enhanced',
 );

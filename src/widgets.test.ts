@@ -11,7 +11,7 @@ import type { EarthData } from './earth.ts';
 import { PROVIDERS } from './satellites/index.ts';
 import { EARTH, TEAM, teamDemo } from './sources.ts';
 import { resolveTeam } from './team.ts';
-import { earthWidget, layoutEarth, pastFrames, type Shown } from './widget-earth.ts';
+import { earthWidget, layoutEarth, pastFrames, TURN_MS, type Shown } from './widget-earth.ts';
 import { layoutMap, mapWidget } from './widget-map.ts';
 import { teamWidget } from './widget-team.ts';
 
@@ -52,12 +52,12 @@ function paint(w: WidgetDefinition<any, any>, size: { w: number; h: number }, lo
 }
 
 /** Paints with every text's size noted. */
-function texts(w: WidgetDefinition<any, any>, size: { w: number; h: number }, locale: string, o: { options?: Record<string, unknown>; data?: unknown; sources?: Record<string, unknown>; theme?: string } = {}) {
+function texts(w: WidgetDefinition<any, any>, size: { w: number; h: number }, locale: string, o: { options?: Record<string, unknown>; data?: unknown; sources?: Record<string, unknown>; theme?: string; now?: number } = {}) {
   const out: { text: string; size: number }[] = [];
   const spy = { ...kit, drawTracked: (g: never, text: string, x: number, y: number, f: { size: number }) => (out.push({ text, size: f.size }), kit.drawTracked(g, text, x, y, f as never)) };
   const g = createCanvas(size.w, size.h).getContext('2d');
   const theme = themeById(o.theme ?? 'midnight');
-  w.render(g as never, { ...createBaseContext({ now: T, locale }), options: { ...(w.options ? defaultsOf(w.options as never) : {}), ...(o.options ?? {}) }, data: o.data, sources: o.sources ?? {}, working: true, box: { x: 0, y: 0, w: size.w, h: size.h }, theme, fonts: theme.fonts, kit: spy, canvas: { createCanvas, loadImage }, preview: false } as never);
+  w.render(g as never, { ...createBaseContext({ now: o.now ?? T, locale }), options: { ...(w.options ? defaultsOf(w.options as never) : {}), ...(o.options ?? {}) }, data: o.data, sources: o.sources ?? {}, working: true, box: { x: 0, y: 0, w: size.w, h: size.h }, theme, fonts: theme.fonts, kit: spy, canvas: { createCanvas, loadImage }, preview: false } as never);
   return out;
 }
 
@@ -76,7 +76,7 @@ function fakeShown(): Shown {
 }
 const earthOf = (sat: keyof typeof PROVIDERS, stale = false): EarthData => {
   const p = PROVIDERS[sat];
-  return { sat, name: p.name, craft: p.craft, subLon: p.subLon, credit: p.credit(2026), creditLong: p.creditLong(2026), frames: [{ file: '/x.jpg', takenAt: T - 25 * 60_000, px: 678, kind: 'disk' }], stale, error: null };
+  return { sat, name: p.name, craft: p.craft, subLon: p.subLon, credit: p.credit(2026), frames: [{ file: '/x.jpg', takenAt: T - 25 * 60_000, px: 678, kind: 'disk' }], stale, error: null };
 };
 
 const team = teamDemo();
@@ -113,16 +113,26 @@ test('no text under 11 px, anywhere, in any theme', () => {
         }
 });
 
-test('the satellite’s credit is on screen at every size, whole', () => {
+test('each satellite’s full credit, word for word, is drawn at every size and language: at once, or in turns', () => {
   for (const sat of ['goes-east', 'goes-west', 'meteosat', 'meteosat-iodc', 'himawari'] as const)
     for (const size of SIZES)
       for (const locale of LOCALES) {
-        const p = PROVIDERS[sat];
-        const drawn = texts(earthWidget, size, locale, { data: fakeShown(), sources: { [EARTH]: earthOf(sat) } }).map((x) => x.text);
-        // Either form, possibly wrapped over lines, whole: no ellipsis in it.
+        const credit = PROVIDERS[sat].credit(2026);
+        // Every turn of the caption, in order, over a full cycle.
+        const drawn: string[] = [];
+        let first = '';
+        for (let k = 0; k < 40; k++) {
+          const page = texts(earthWidget, size, locale, { data: fakeShown(), sources: { [EARTH]: earthOf(sat) }, now: T + k * TURN_MS }).map((x) => x.text)
+            // Leave out the times under the earlier images (on long strips): they come between the credit's lines.
+            .filter((t) => !/^(上午|下午)?\s?\d{1,2}:\d{2}( [AP]M)?$/.test(t));
+          const key = page.join('|');
+          if (k > 0 && key === first) break;
+          if (k === 0) first = key;
+          drawn.push(...page);
+        }
         const flat = drawn.join('').replace(/\s/g, '');
-        const has = (credit: string) => flat.includes(credit.replace(/\s/g, ''));
-        assert.ok(has(p.credit(2026)) || has(p.creditLong(2026)), `${sat} ${size.w}x${size.h} ${locale}: ${drawn.join(' | ')}`);
+        assert.ok(flat.includes(credit.replace(/\s/g, '')), `${sat} ${size.w}x${size.h} ${locale}: ${drawn.join(' | ')}`);
+        assert.ok(!drawn.some((t) => t.includes('…') && credit.includes(t.replace('…', '').trim().split(' ')[0] ?? '')), `${sat} ${size.w}x${size.h}: credit cut`);
       }
 });
 
