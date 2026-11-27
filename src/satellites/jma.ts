@@ -16,6 +16,15 @@ import type { Provider, Shot } from './types.ts';
 export const JMA_HOST = 'www.data.jma.go.jp';
 export const JMA_PAGE = `https://${JMA_HOST}/mscweb/data/himawari/sat_img.php?area=fd_`;
 export const JMA_PX = 601;
+/** The page the images come from, as the JMA website's terms cite it. */
+export const JMA_SOURCE_URL = `https://${JMA_HOST}/mscweb/data/himawari/`;
+/**
+ * The JMA website's terms: "Source: Japan Meteorological Agency website (URL
+ * of relevant page)", and, for content edited (these are resized and cut to
+ * the disk), a statement that it was edited. The TCR terms: at least "JMA",
+ * "NOAA/NESDIS" and "CSU/CIRA" (names or abbreviations).
+ */
+export const JMA_CREDIT = `Source: Japan Meteorological Agency website (${JMA_SOURCE_URL}), resized and cropped · True Color Reproduction: JMA, NOAA/NESDIS, CSU/CIRA`;
 /** The Earth fills 577 of the image's 601 px. */
 export const JMA_SCALE = 577 / 601;
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
@@ -46,8 +55,7 @@ export const himawari: Provider = {
   craft: 'Himawari-9',
   subLon: 140.7,
   hosts: [JMA_HOST],
-  credit: () => 'JMA · NOAA/NESDIS · CSU/CIRA',
-  creditLong: () => 'Himawari-9 True Color Reproduction · Source: Japan Meteorological Agency website · JMA, NOAA/NESDIS, CSU/CIRA',
+  credit: () => JMA_CREDIT,
   async plan(net, _px, o): Promise<Shot> {
     const latest = parseJmaLatest(await net.text(JMA_PAGE, o.signal ? { signal: o.signal } : {}));
     if (!latest) throw new Error('no image listed on the JMA page');

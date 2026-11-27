@@ -21,7 +21,6 @@ function world(o: { lastModified?: boolean; fixedUrl?: boolean } = {}) {
     subLon: 140.7,
     hosts: ['example.org'],
     credit: () => 'Credit',
-    creditLong: () => 'Credit, long',
     async plan(_net, px): Promise<Shot> {
       st.plans++;
       if (st.down) throw new Error('HTTP 503');

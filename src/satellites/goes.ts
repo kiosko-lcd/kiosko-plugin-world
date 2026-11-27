@@ -31,8 +31,8 @@ function goes(id: 'goes-east' | 'goes-west', craft: string, subLon: number, name
     craft,
     subLon,
     hosts: [GOES_HOST],
-    credit: () => 'NOAA/NESDIS/STAR · CIRA',
-    creditLong: () => `${craft} GeoColor · NOAA/NESDIS/STAR, CIRA · public domain`,
+    // Public domain: no wording is required; NOAA and CIRA are credited all the same.
+    credit: () => 'NOAA/NESDIS/STAR, CIRA · public domain',
     // The address is fixed; when it was taken is read from the file (see `goesTakenAt`).
     async plan(_net, px): Promise<Shot> {
       const s = goesSize(px);

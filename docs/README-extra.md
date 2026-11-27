@@ -74,14 +74,17 @@ the hours before it (one every hour or so, as the source has kept them).
 ## Licences and credit
 
 The satellite, the time of the image and the agency's credit are always on
-screen, whole (wrapped, never cut): the long form where there is room, the
-short one otherwise.
+screen. The credit is the wording each agency's terms give, in their
+language, never shortened nor translated: where a tile has no room for all
+of it at once, it is wrapped and shown in turns, a few lines every 20
+seconds (the satellite and time first, then the credit); the interlude
+shows it the same way over its seconds.
 
-| Satellite | Shown as | Terms |
+| Satellite | Credit shown, word for word | Terms |
 |---|---|---|
-| GOES-East, GOES-West | **NOAA/NESDIS/STAR · CIRA** (long: *GOES-19 GeoColor · NOAA/NESDIS/STAR, CIRA · public domain*) | Works of the US federal government: public domain. GeoColor is by CIRA (Colorado State University) with NOAA. [star.nesdis.noaa.gov](https://www.star.nesdis.noaa.gov/GOES/) |
-| Himawari | **JMA · NOAA/NESDIS · CSU/CIRA** (long: *Himawari-9 True Color Reproduction · Source: Japan Meteorological Agency website · JMA, NOAA/NESDIS, CSU/CIRA*) | The JMA website's terms: Public Data License 1.0, compatible with CC BY 4.0, citing the source ([copyright](https://www.jma.go.jp/jma/en/copyright.html)); True Color Reproduction images also credit JMA, NOAA/NESDIS and CSU/CIRA ([TCR terms](https://www.jma.go.jp/jma/jma-eng/satellite/introduction/TCR.html)). The images are resized and cut to the disk, not otherwise changed. |
-| Meteosat, Meteosat IODC | **EUMETSAT Meteosat 2026** (long: *Meteosat-12 GeoColour · Contains modified EUMETSAT Meteosat data 2026 · CC BY 4.0*) | EUMETSAT's Data Policy: RGB images and other visualisations are "Advanced Image Products", **Core** data, free and unrestricted under CC BY 4.0, with the attribution "[Contains modified] EUMETSAT [Meteosat] [data/product] [year]". [Data Policy](https://www.eumetsat.int/data-policy) |
+| GOES-East, GOES-West | **NOAA/NESDIS/STAR, CIRA · public domain** | Works of the US federal government: public domain, no wording required. GeoColor is by CIRA (Colorado State University) with NOAA. [star.nesdis.noaa.gov](https://www.star.nesdis.noaa.gov/GOES/) |
+| Himawari | **Source: Japan Meteorological Agency website (https://www.data.jma.go.jp/mscweb/data/himawari/), resized and cropped · True Color Reproduction: JMA, NOAA/NESDIS, CSU/CIRA** | The JMA website's terms (Public Data License 1.0, compatible with CC BY 4.0): cite "Source: Japan Meteorological Agency website (URL of relevant page)" and, for edited content, say it was edited ([copyright](https://www.jma.go.jp/jma/en/copyright.html)); True Color Reproduction images also list, at least, JMA, NOAA/NESDIS and CSU/CIRA ([TCR terms](https://www.jma.go.jp/jma/jma-eng/satellite/introduction/TCR.html)). |
+| Meteosat, Meteosat IODC | **Contains modified EUMETSAT Meteosat data 2026 · CC BY 4.0** (the year of the image) | EUMETSAT's Data Policy (art. 6.3): the attribution "[Contains modified] EUMETSAT [Meteosat] [data/product] [year]"; RGB images and other visualisations are "Advanced Image Products", **Core** data, free and unrestricted under CC BY 4.0. They are reprojected here, so "modified". [Data Policy](https://www.eumetsat.int/data-policy) |
 
 NICT's Himawari site (`himawari8.nict.go.jp`) has bigger Himawari images
 but no terms of use we could find for reuse, so it is not used. No agency

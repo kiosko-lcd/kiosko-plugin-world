@@ -98,7 +98,12 @@ export const dayInterlude = defineInterlude({
       for (const f of earth.frames) disks.push(await loadDisk(ctx.canvas, f, earth.subLon, d, { cache: false }));
       const size = Math.min(W, H);
       const x0 = (W - size) / 2, y0 = (H - size) / 2;
-      const credit = kit.truncate(ctx.canvas.createCanvas(1, 1).getContext('2d') as never, earth.credit, W - 16, { size: MIN_PX, family: theme.fonts.sans });
+      // The credit whole, word for word: wrapped, and in turns over the seconds if it takes more than three lines.
+      const creditFont = { size: MIN_PX, family: theme.fonts.sans, color: 'rgba(236,240,245,0.8)' };
+      const creditLines = kit.wrapLines(ctx.canvas.createCanvas(1, 1).getContext('2d') as never, earth.credit, W - 16, 40, creditFont);
+      const per = Math.max(1, Math.min(3, Math.floor((H * 0.3) / (MIN_PX * 1.4)), creditLines.length));
+      const creditPages: string[][] = [];
+      for (let k = 0; k < creditLines.length; k += per) creditPages.push(creditLines.slice(k, k + per));
       return {
         frames,
         draw(g: Graphics, i: number) {
@@ -116,7 +121,13 @@ export const dayInterlude = defineInterlude({
             g.globalAlpha = 1;
           }
           clock(g, disks[k]!.takenAt, 8, 8, ctx.t(earth.name));
-          kit.drawTracked(g, credit, 8, H - 8, { size: MIN_PX, family: theme.fonts.sans, color: 'rgba(236,240,245,0.75)' });
+          const page = creditPages[Math.min(creditPages.length - 1, Math.floor((i / frames) * creditPages.length))] ?? [];
+          const lh = Math.round(MIN_PX * 1.4);
+          if (page.length) {
+            g.fillStyle = 'rgba(0,0,0,0.55)';
+            g.fillRect(0, H - page.length * lh - 10, W, page.length * lh + 10);
+          }
+          page.forEach((l, j) => kit.drawTracked(g, l, 8, H - 8 - (page.length - 1 - j) * lh, creditFont));
         },
       };
     }

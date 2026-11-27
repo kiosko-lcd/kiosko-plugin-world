@@ -3,7 +3,8 @@ Copyright (c) 2026 Loksly. MIT licence (see LICENSE).
 
 The map's land and the images this plugin shows are not covered by this
 plugin's licence. The plugin always shows, with a satellite image, the
-satellite, the time of the image and the agency's credit. It uses no
+satellite, the time of the image and the agency's credit, word for word as
+its terms give it. It uses no
 agency's logo, and Kiosko and this plugin are not affiliated with, nor
 endorsed by, any of them.
 
@@ -19,7 +20,7 @@ NOAA/NESDIS/STAR, GOES-East (GOES-19) and GOES-West (GOES-18)
   produced by CIRA (Cooperative Institute for Research in the Atmosphere,
   Colorado State University) with NOAA/NESDIS/STAR.
   https://www.star.nesdis.noaa.gov/GOES/
-  Shown as: "NOAA/NESDIS/STAR · CIRA".
+  Shown as: "NOAA/NESDIS/STAR, CIRA · public domain".
   The screenshots in docs/ show GOES-19 images (public domain).
 
 Japan Meteorological Agency, Himawari-9
@@ -35,9 +36,9 @@ Japan Meteorological Agency, Himawari-9
   The plugin resizes the images and cuts them to the Earth's disk.
   https://www.jma.go.jp/jma/en/copyright.html
   https://www.jma.go.jp/jma/jma-eng/satellite/introduction/TCR.html
-  Shown as: "JMA · NOAA/NESDIS · CSU/CIRA" (long form: "Himawari-9 True
-  Color Reproduction · Source: Japan Meteorological Agency website · JMA,
-  NOAA/NESDIS, CSU/CIRA").
+  Shown, whole (in turns on small tiles), as: "Source: Japan Meteorological
+  Agency website (https://www.data.jma.go.jp/mscweb/data/himawari/), resized
+  and cropped · True Color Reproduction: JMA, NOAA/NESDIS, CSU/CIRA".
 
 EUMETSAT, Meteosat-12 (0°) and Meteosat-9 (45.5°E, Indian Ocean)
   GeoColour and Natural Colour Enhanced RGB images from the EUMETView map
@@ -48,8 +49,8 @@ EUMETSAT, Meteosat-12 (0°) and Meteosat-9 (45.5°E, Indian Ocean)
   [data/product] [year]". The plugin reprojects them from latitude and
   longitude to the satellite's view of the Earth.
   https://www.eumetsat.int/data-policy
-  Shown as: "EUMETSAT Meteosat <year>" (long form: "Contains modified
-  EUMETSAT Meteosat data <year> · CC BY 4.0").
+  Shown, whole (in turns on small tiles), as: "Contains modified EUMETSAT
+  Meteosat data <year> · CC BY 4.0".
 
 Test fixtures
   src/fixtures/jma-fd.html is an excerpt of the JMA real-time page (its list
