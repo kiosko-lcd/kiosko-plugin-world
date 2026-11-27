@@ -9,7 +9,7 @@
     "zh-Hans": "此刻的地球",
     "zh-Hant": "此刻的地球"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": {
     "en": "The planet now: a world map with day and night as they are (twilight in bands, the sun and the moon overhead) computed on your machine, your team’s cities with their time and whether they are at work, and the whole Earth as the weather satellites see it (GOES, Meteosat, Himawari), renewed every 10 minutes. Also an interlude: a day going round the Earth in a few seconds. No keys needed.",
     "es": "El planeta ahora: un mapa del mundo con el día y la noche como están (el crepúsculo en bandas, el sol y la luna en su cénit) calculados en tu ordenador, las ciudades de tu equipo con su hora y si están trabajando, y la Tierra entera como la ven los satélites meteorológicos (GOES, Meteosat, Himawari), renovada cada 10 minutos. También un interludio: un día alrededor de la Tierra en unos segundos. Sin claves.",

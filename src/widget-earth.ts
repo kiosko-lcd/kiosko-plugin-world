@@ -203,6 +203,11 @@ export const earthWidget = defineWidget<ObjectField<{}>, Shown | undefined>({
   },
   // The caption takes turns where it doesn't fit at once.
   redraw: { everyMs: TURN_MS },
+  /** The satellite has answered but there is no image yet ("Waiting for the satellite…"), e.g. its provider failing since the start. */
+  empty: ({ sources, data }) => {
+    const e = sources[EARTH] as EarthData | undefined;
+    return !!e && !e.demo && !data?.latest;
+  },
   render(g, ctx) {
     const { box } = ctx;
     g.save();

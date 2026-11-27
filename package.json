@@ -1,6 +1,6 @@
 {
   "name": "kiosko-plugin-world",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The planet now on a small USB LCD panel: a world map with day and night (twilight bands, the sun and the moon) computed on your machine, your team's cities with their local time and whether they are at work, and the whole Earth seen by weather satellites (GOES, Himawari, Meteosat), refreshed every 10 minutes. Also as an interlude: a day going round the Earth in a few seconds. No keys needed.",
   "type": "module",
   "license": "MIT",

@@ -193,3 +193,16 @@ test('a paint is cheap once the land is drawn', () => {
       assert.ok(ms < 45, `${name} ${size.w}x${size.h}: ${ms.toFixed(1)} ms`);
     }
 });
+
+test('empty: the clocks with no city, the Earth with no image yet; the map never', () => {
+  const st = (sources: Record<string, unknown>, data?: unknown) => ({ options: {}, data, sources, now: T, working: true }) as never;
+  assert.equal(teamWidget.empty!(st({ [TEAM]: { cities: [], here: 'UTC' } })), true, 'no city');
+  assert.equal(teamWidget.empty!(st({ [TEAM]: teamDemo() })), false, 'the team');
+  assert.equal(teamWidget.empty!(st({})), false, 'loading');
+  assert.equal(earthWidget.empty!(st({ [EARTH]: { ...earthOf('himawari'), frames: [], error: 'timeout' } })), true, 'no image yet');
+  assert.equal(earthWidget.empty!(st({ [EARTH]: earthOf('goes-east') }, fakeShown())), false, 'an image');
+  assert.equal(earthWidget.empty!(st({ [EARTH]: earthOf('meteosat', true) }, fakeShown())), false, 'an old image is still shown');
+  assert.equal(earthWidget.empty!(st({ [EARTH]: demoEarth(T) })), false, 'the sample globe');
+  assert.equal(earthWidget.empty!(st({})), false, 'loading');
+  assert.equal(mapWidget.empty, undefined, 'day and night are computed here: always something');
+});
